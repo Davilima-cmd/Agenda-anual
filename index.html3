@@ -1,0 +1,31 @@
+const calendarContainer = document.getElementById('calendar-container');
+const months = [
+  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+];
+
+function createCalendar(year) {
+  for (let m = 0; m < 12; m++) {
+    const monthDiv = document.createElement('div');
+    monthDiv.className = 'month';
+    const monthTitle = document.createElement('h2');
+    monthTitle.textContent = months[m];
+    monthDiv.appendChild(monthTitle);
+
+    const daysInMonth = new Date(year, m + 1, 0).getDate();
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day';
+      dayDiv.textContent = d;
+      dayDiv.onclick = () => {
+        const note = prompt(`Adicionar nota para ${d} de ${months[m]}:`);
+        if (note) dayDiv.title = note;
+      };
+      monthDiv.appendChild(dayDiv);
+    }
+
+    calendarContainer.appendChild(monthDiv);
+  }
+}
+
+createCalendar(2025);
